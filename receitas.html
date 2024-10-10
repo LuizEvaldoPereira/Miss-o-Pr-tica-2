@@ -1,0 +1,99 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <!-- Inclusão do Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-warning container-fluid" onload="preencheCatalogo()">
+    <!-- Título da página -->
+    <h1 class="text-center mt-4">Catálogo de Receitas</h1>
+
+    <!-- Div de catálogo de receitas (flex-wrap) -->
+    <div id="pnlCatalogo" class="d-flex flex-wrap justify-content-center"></div>
+
+    <script>
+        // Vetor de receitas em formato JSON
+        const receitas = [
+            {
+                titulo: "Bolo de Chocolate",
+                imagem: "chocolate.png", // Coloque a imagem correspondente no caminho correto
+                preparo: "Bata os ovos, o açúcar, o óleo, o achocolatado e a farinha de trigo. Despeje a massa em uma tigela e adicione a água quente e o fermento, misture bem. Leve para assar por 40 minutos.",
+                ingredientes: [
+                    "3 ovos",
+                    "2 xícaras (chá) de farinha de trigo",
+                    "1/2 xícara (chá) de óleo",
+                    "1 e 1/2 xícara (chá) de açúcar",
+                    "1 xícara (chá) de chocolate em pó ou achocolatado",
+                    "1 colher (sopa) de fermento em pó",
+                    "1 xícara (chá) de água quente"
+                ]
+            },
+            {
+                titulo: "Bolo de Morango",
+                imagem: "morango.png",
+                preparo: "Bata os ovos, farinha, açucar e o leite quente juntos. Coloque a mistura e leve para assar por 30 minutos. Após estar assada adicione os morangos a gosto.",
+                ingredientes: [
+                    "5 Ovos",
+                    "2 xícaras (chá) de farinha de trigo",
+                    "1 colher (sopa) de fermento em pó",
+                    "2 xícaras (chá) de açúcar",
+                    "1 xícara (cha) de leite quente",
+                    "2 caixinhas de morango"
+                ]
+            },
+            {
+                titulo: "Bolo de Cenoura",
+                imagem: "cenoura.png",
+                preparo: "Em um liquidificador, adicione a cenoura, os ovos e o óleo. Acrescente açúcar, trigo, fermento em pó e a cenoura e bata por mais 5 minutos. Leve para assar por 40 minutos.",
+                ingredientes: [
+                    "1/2 xícara (chá) de óleo",
+                    "4 ovos",
+                    "2 e 1/2 xícaras (chá) de farinha de trigo",
+                    "3 cenouras médias raladas",
+                    "2 xícaras (chá) de açúcar e 1 colher (sopa) de fermento em pó"
+                ]
+            }
+        ];
+
+        // Função para gerar a lista de ingredientes em HTML
+        function getListaIngredientes(receita) {
+            let listaIngredientes = "<ul>";
+            listaIngredientes += receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, curr) => acc + curr, "");
+            listaIngredientes += "</ul>";
+            return listaIngredientes;
+        }
+
+        // Função para gerar o painel de receita
+        function getCard(receita) {
+            return `
+                <div class="card m-3" style="width: 250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Função para preencher o catálogo de receitas
+        function preencheCatalogo() {
+            // Captura o elemento pnlCatalogo
+            const catalogo = document.getElementById("pnlCatalogo");
+
+            // Gera os cards de receitas e define o innerHTML
+            catalogo.innerHTML = receitas.map(receita => getCard(receita)).reduce((acc, curr) => acc + curr, "");
+        }
+    </script>
+
+    <!-- Inclusão dos scripts do Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
